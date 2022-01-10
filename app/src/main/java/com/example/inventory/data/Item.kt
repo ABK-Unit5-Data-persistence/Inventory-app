@@ -1,8 +1,12 @@
 package com.example.inventory.data
 
+import android.icu.text.NumberFormat
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "item")
 data class Item (
@@ -14,3 +18,6 @@ data class Item (
     val itemPrice: Double,
     @ColumnInfo(name = "quantity")
     val quantityInStock: Int)
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun Item.getFormattedPrice(): String = NumberFormat.getCurrencyInstance(Locale.US).format(itemPrice)
